@@ -1,0 +1,7 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "NT3H2111W0FHKH")(type "KiCad")(uri "${KIPRJMOD}/NT3H2111W0FHKH/NT3H2111W0FHKH.kicad_sym")(options "")(descr ""))
+  (lib (name "2025-11-11_16-30-43")(type "KiCad")(uri "${KIPRJMOD}/LTST_C193KGKT_5A/2025-11-11_16-30-43.kicad_sym")(options "")(descr ""))
+  (lib (name "CRCW0603200RFKEAC")(type "KiCad")(uri "${KIPRJMOD}/CRCW0603200RFKEAC/CRCW0603200RFKEAC.kicad_sym")(options "")(descr ""))
+  (lib (name "CL10B224KO8NNNC")(type "KiCad")(uri "${KIPRJMOD}/CL10B224KO8NNNC/CL10B224KO8NNNC.kicad_sym")(options "")(descr ""))
+)

@@ -1,0 +1,16 @@
+NEODEN,YY1,P&P FILE,,,,,,,,,,,
+,,,,,,,,,,,,,
+PanelizedPCB,UnitLength,37.97,UnitWidth,35.05,Rows,1,Columns,1,
+,,,,,,,,,,,,,
+Fiducial,1-X,0.00,1-Y,0.00,OverallOffsetX,0,OverallOffsetY,0,
+,,,,,,,,,,,,,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+,,,,,,,,,,,,,
+Designator,Comment,Footprint,Mid X(mm),Mid Y(mm),Rotation,Head,FeederNo,Mount Speed(%),Pick Height(mm),Place Height(mm),Mode,Skip
+U1,NT3H2111W0FHKH,QFN8P50_160X160X50L40X20N,115.000,-98.695,90.0,1,1,100,0,0,1,0
+LED1,LTST-C193KGKT-5A,LED_LTST-C193KGKT-5A_LTO,112.674,-92.326,0.0,1,1,100,0,0,1,0
+R1,CRCW0603200RFKEAC,RESC1608X55N,113.220,-96.000,0.0,1,1,100,0,0,1,0
+C1,CL10B224KO8NNNC,CAPC1608X90N,109.000,-91.280,90.0,1,1,100,0,0,1,0
