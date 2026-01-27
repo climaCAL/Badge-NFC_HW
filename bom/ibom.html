@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive BOM for KiCAD</title>
-  <!-- html2canvas library for screenshot capture -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style type="text/css">
 :root {
   --pcb-edge-color: black;
@@ -4833,74 +4831,13 @@ function generatePDFReport() {
             </div>
         </div>
         <div class="supervisor-section">Signature Superviseur : __________________________________________________</div>
-    </body></html>`;
-    
-    // 1. Crée un conteneur DOM pour capturer le contenu
-    const container = document.createElement('div');
-    container.innerHTML = reportHTML;
-    
-    // Force un style pour s'assurer que html2canvas voit bien le contenu
-    Object.assign(container.style, {
-        position: 'absolute',
-        left: '-9999px',
-        top: '0',
-        width: '1024px',
-        background: 'white',
-        color: 'black'
-    });
-    document.body.appendChild(container);
-
-    // 2. Capture avec gestion des images externes (CORS)
-    if (typeof html2canvas !== 'undefined') {
-        html2canvas(container, {
-            useCORS: true,              // Autorise la capture d'images venant d'ailleurs (logo, etc.)
-            allowTaint: true,           // Permet de capturer des éléments "sales"
-            backgroundColor: "#ffffff",
-            scale: 2                    // Pour une image de haute qualité (plus nette au PDF)
-        }).then(canvas => {
-            const screenshotData = canvas.toDataURL("image/png");
-
-            // 3. Envoi vers l'application React
-            window.parent.postMessage({
-                type: 'PCB_SCREENSHOT',
-                payload: screenshotData
-            }, "*");
-
-            document.body.removeChild(container);
-            alert("📸 Capture du montage ajoutée au rapport final !");
-            
-            // Affiche aussi le print dialog
-            const win = window.open('', '_blank');
-            if(win) { 
-                win.document.write(reportHTML); 
-                win.document.close();
-                setTimeout(() => { win.print(); }, 500);
-            }
-        }).catch(err => {
-            console.error("Erreur capture:", err);
-            document.body.removeChild(container);
-            alert("Erreur lors de la capture d'écran. Affichage du print dialog à la place.");
-            
-            // Fallback au comportement normal
-            const win = window.open('', '_blank');
-            if(win) { 
-                win.document.write(reportHTML); 
-                win.document.close();
-                setTimeout(() => { win.print(); }, 500);
-            }
-        });
-    } else {
-        console.error("html2canvas non chargé");
-        document.body.removeChild(container);
+        <script>
+            window.onload = function() { setTimeout(function() { window.print(); }, 500); };
+        <\/script></body></html>`;
         
-        // Fallback au comportement normal
-        const win = window.open('', '_blank');
-        if(win) { 
-            win.document.write(reportHTML); 
-            win.document.close();
-            setTimeout(() => { win.print(); }, 500);
-        }
-    }
+    const win = window.open('', '_blank');
+    if(win) { win.document.write(reportHTML); win.document.close(); } 
+    else { alert("Popups bloqués. Autorisez-les pour voir le rapport."); }
 }
 
 function toggleProductionMode() {
