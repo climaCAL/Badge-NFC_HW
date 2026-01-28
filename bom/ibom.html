@@ -5281,3 +5281,15 @@ document.addEventListener('DOMContentLoaded', () => {
 </body>
 
 </html>
+<script>
+window.addEventListener("message", (event) => {
+  if (event.data?.type === "GENERATE_PDF") {
+    console.log("Ordre de génération PDF reçu de React !");
+    if (typeof generatePDFReport === "function") {
+        generatePDFReport(); 
+    } else {
+        window.print();
+    }
+  }
+});
+</script>
