@@ -963,6 +963,7 @@ a {
 
   </style>
   <script type="text/javascript" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 ///////////////////////////////////////////////
 /*
   Split.js - v1.3.5
@@ -4831,13 +4832,23 @@ function generatePDFReport() {
             </div>
         </div>
         <div class="supervisor-section">Signature Superviseur : __________________________________________________</div>
-        <script>
-            window.onload = function() { setTimeout(function() { window.print(); }, 500); };
-        <\/script></body></html>`;
+      </body></html>`;
         
-    const win = window.open('', '_blank');
-    if(win) { win.document.write(reportHTML); win.document.close(); } 
-    else { alert("Popups bloqués. Autorisez-les pour voir le rapport."); }
+    const container = document.createElement('div');
+    container.innerHTML = reportHTML;
+
+    html2pdf()
+  .from(container)
+  .outputPdf("blob")
+  .then((pdfBlob) => {
+
+    //envoyer à React
+    envoyerRapportAuParent(pdfBlob);
+
+    const url = URL.createObjectURL(pdfBlob);
+    const win = window.open(url, "_blank");
+    if (!win) alert("Popups bloqués");
+  });
 }
 
 function toggleProductionMode() {
@@ -4873,6 +4884,19 @@ function handleLogin() {
         closeOverlay('login-overlay');
         toggleProductionMode();
     } else alert("Info manquante.");
+}
+
+function envoyerRapportAuParent(pdfBlob) {
+  const reader = new FileReader();
+
+  reader.onload = function () {
+    window.parent.postMessage({
+      type: "PCB_REPORT_PDF",
+      data: reader.result // base64
+    }, "*");
+  };
+
+  reader.readAsDataURL(pdfBlob);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
